@@ -9,7 +9,6 @@ import {
   TextField,
 } from '@mui/material'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
-import EditIcon from '@mui/icons-material/Edit'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
@@ -31,7 +30,7 @@ const AddData = () => {
       setFile(event.target.value)
       setValidate(true)
     } else {
-      toast.error('Please enter a valid URL')
+      toast.error('Masukkan URL yang valid')
     }
   }
 
@@ -39,7 +38,7 @@ const AddData = () => {
     event.preventDefault()
 
     if (placeholder.length === 0) {
-      toast.error('Please enter a valid URL')
+      toast.error('Masukkan URL yang valid')
       return false
     }
     if (
@@ -52,11 +51,11 @@ const AddData = () => {
         placeholder.startsWith('Http://')
       )
     ) {
-      toast.error('Please enter a valid URL')
+      toast.error('Masukkan URL yang valid')
       return false
     }
     if (validate === false) {
-      toast.error('Please enter a valid URL')
+      toast.error('Masukkan URL yang valid')
       return false
     }
 
@@ -83,7 +82,7 @@ const AddData = () => {
         description: descriptionValidator,
       }),
     })
-    toast('Data berhasil ditambahkan!', {
+    toast('Data berhasil ditambahkan', {
       position: 'top-right',
       autoClose: 5000,
       hideProgressBar: false,
@@ -131,16 +130,6 @@ const AddData = () => {
           ) : (
             ''
           )}
-          
-          {/* <Button variant='contained' component='label'>
-            Upload File
-            <input
-              type='file'
-              accept='.jpg, .jpeg, .png'
-              hidden
-              onChange={(event) => handleFile(event)}
-            />
-          </Button> */}
 
           <TextField
             fullWidth

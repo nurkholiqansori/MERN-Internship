@@ -15,7 +15,11 @@ import { toast } from 'react-toastify'
 
 const UpdateData = () => {
   const [data, setData] = React.useState({})
+  const [placeholder, setPlaceholder] = React.useState(data.image)
+  const [file, setFile] = React.useState('')
+  const [validate, setValidate] = React.useState(true)
   const params = useParams()
+
 
   React.useEffect(() => {
     fetch(`http://localhost:8000/api/article/${params.url}`, {
@@ -23,13 +27,57 @@ const UpdateData = () => {
       redirect: 'follow',
     })
       .then((response) => response.json())
-      .then((result) => setData(result[0]))
+      .then((result) => {
+        setData(result[0])
+        setFile(result[0].image)
+        setPlaceholder(result[0].image)
+      })
   }, [])
 
   const navigate = useNavigate()
 
+  const handleFile = (event) => {
+    if (
+      placeholder.startsWith('https://') ||
+      placeholder.startsWith('http://') ||
+      placeholder.startsWith('www.') ||
+      placeholder.startsWith('//') ||
+      placeholder.startsWith('Https://') ||
+      placeholder.startsWith('Http://')
+    ) {
+      setFile(event.target.value)
+      setValidate(true)
+    } else {
+      toast.error('Masukkan URL yang valid')
+    }
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault()
+
+    if (placeholder.length === 0) {
+      toast.error('Masukkan URL yang valid')
+      return false
+    }
+    if (
+      !(
+        placeholder.startsWith('https://') ||
+        placeholder.startsWith('http://') ||
+        placeholder.startsWith('www.') ||
+        placeholder.startsWith('//') ||
+        placeholder.startsWith('Https://') ||
+        placeholder.startsWith('Http://')
+      )
+    ) {
+      toast.error('Masukkan URL yang valid')
+      return false
+    }
+    if (validate === false) {
+      toast.error('Masukkan URL yang valid')
+      return false
+    }
+
+    setValidate(true)
 
     const data = new FormData(event.currentTarget)
     const tempUrl = data.get('title').search(' ')
@@ -88,11 +136,25 @@ const UpdateData = () => {
               gap: '2rem',
             }}
           >
+            <img
+              src={file}
+              alt='Preview'
+              width='100%'
+              onError={({ currentTarget }) => {
+                currentTarget.onerror = null
+                currentTarget.src =
+                  'https://via.placeholder.com/200?text=Not+Found'
+                setValidate(false)
+              }}
+            />
+
             <TextField
               fullWidth
               required
               name='url'
-              value={data.image}
+              onChange={(event) => setPlaceholder(event.target.value)}
+              onBlur={(event) => handleFile(event)}
+              defaultValue={data.image}
               id='outlined-required'
               label='URL Foto Artikel'
               helperText={
