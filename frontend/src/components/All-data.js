@@ -40,7 +40,7 @@ const AllData = () => {
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
-      })
+    })
     setOpen(false)
   }
 
@@ -89,61 +89,70 @@ const AllData = () => {
         Semua Artikel
       </Typography>
       <Stack spacing={5}>
-        {data.map((item, index) => (
-          <Card sx={{ width: '100%' }} key={item.title}>
-            <CardHeader
-              title={item.title}
-              action={
-                <Link href={'/update-data/' + item.url}>
-                  <Tooltip title='Edit' placement='top' arrow>
-                    <IconButton aria-label='edit'>
-                      <EditIcon />
-                    </IconButton>
-                  </Tooltip>
-                </Link>
-              }
-            />
-            {item ? (
-              <CardMedia
-                component='img'
-                image={item.image}
+        {data === null ? (
+          'Wait...'
+        ) : data.length === 0 ? (
+          <Typography align='center'>
+            Anda belum menambahkan artikel, silahkan tambahkan data pada tanda
+            plus diatas.
+          </Typography>
+        ) : (
+          data.map((item, index) => (
+            <Card sx={{ width: '100%' }} key={item.title}>
+              <CardHeader
                 title={item.title}
+                action={
+                  <Tooltip title='Edit' placement='top' arrow>
+                    <Link href={'/update-data/' + item.url}>
+                      <IconButton aria-label='edit'>
+                        <EditIcon />
+                      </IconButton>
+                    </Link>
+                  </Tooltip>
+                }
               />
-            ) : (
-              <Skeleton variant='rectangular' width={310} height={118} />
-            )}
+              {item ? (
+                <CardMedia
+                  component='img'
+                  image={item.image}
+                  title={item.title}
+                />
+              ) : (
+                <Skeleton variant='rectangular' width={310} height={118} />
+              )}
 
-            <CardContent>
-              <Typography variant='body2'>
-                {item.description.length > 100 ? (
-                  <>{item.description.substring(0, 100)}...</>
-                ) : (
-                  item.description
-                )}
-              </Typography>
-            </CardContent>
-            <CardActions
-              sx={{
-                p: '1rem',
-                display: 'flex',
-                justifyContent: 'space-between',
-              }}
-            >
-              <Link href={'/article/' + item.url} title={item.title}>
-                <Button variant='contained' color='primary'>
-                  Read More
-                </Button>
-              </Link>
-              <Button
-                variant='contained'
-                color='error'
-                onClick={() => deleteArticle(index)}
+              <CardContent>
+                <Typography variant='body2'>
+                  {item.description.length > 100 ? (
+                    <>{item.description.substring(0, 100)}...</>
+                  ) : (
+                    item.description
+                  )}
+                </Typography>
+              </CardContent>
+              <CardActions
+                sx={{
+                  p: '1rem',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                }}
               >
-                Hapus
-              </Button>
-            </CardActions>
-          </Card>
-        ))}
+                <Link href={'/article/' + item.url} title={item.title}>
+                  <Button variant='contained' color='primary'>
+                    Read More
+                  </Button>
+                </Link>
+                <Button
+                  variant='contained'
+                  color='error'
+                  onClick={() => deleteArticle(index)}
+                >
+                  Hapus
+                </Button>
+              </CardActions>
+            </Card>
+          ))
+        )}
       </Stack>
     </div>
   )

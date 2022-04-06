@@ -14,10 +14,46 @@ import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 const AddData = () => {
+  const [placeholder, setPlaceholder] = React.useState('')
+  const [file, setFile] = React.useState('')
+  const [validate, setValidate] = React.useState(false)
   const navigate = useNavigate()
+
+  const handleFile = (event) => {
+    if (
+      placeholder.startsWith('https://') ||
+      placeholder.startsWith('http://') ||
+      placeholder.startsWith('www.') ||
+      placeholder.startsWith('//') ||
+      placeholder.startsWith('Https://') ||
+      placeholder.startsWith('Http://')
+    ) {
+      setFile(event.target.value)
+      setValidate(true)
+    } else {
+      toast.error('Please enter a valid URL')
+    }
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault()
+
+    if (placeholder.length === 0) {
+      toast.error('Please enter a valid URL')
+      return false
+    }
+    if (
+      !(placeholder.startsWith('https://') || placeholder.startsWith('http://') || placeholder.startsWith('www.') || placeholder.startsWith('//') || placeholder.startsWith('Https://') || placeholder.startsWith('Http://'))
+    ) {
+      toast.error('Please enter a valid URL')
+      return false
+    }
+    if (validate === false) {
+      toast.error('Please enter a valid URL')
+      return false
+    }
+
+    setValidate(true)
 
     const data = new FormData(event.currentTarget)
     const tempUrl = data.get('title').search(' ')
@@ -74,14 +110,36 @@ const AddData = () => {
             gap: '2rem',
           }}
         >
+          {file ? (
+            <img
+              src={file}
+              alt='Preview'
+              width='100%'
+              onError={({ currentTarget }) => {
+                currentTarget.onerror = null
+                currentTarget.src = 'https://via.placeholder.com/200?text=Not+Found'
+                setValidate(false)
+              }}
+            />
+          ) : (
+            ''
+          )}
+          
           {/* <Button variant='contained' component='label'>
             Upload File
-            <input type='file' accept='image/*' hidden />
+            <input
+              type='file'
+              accept='.jpg, .jpeg, .png'
+              hidden
+              onChange={(event) => handleFile(event)}
+            />
           </Button> */}
 
           <TextField
             fullWidth
             required
+            onChange={(event) => setPlaceholder(event.target.value)}
+            onBlur={(event) => handleFile(event)}
             name='url'
             id='outlined-required'
             label='URL Foto Artikel'
