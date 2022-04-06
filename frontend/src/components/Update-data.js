@@ -87,7 +87,7 @@ const UpdateData = () => {
     if (tempUrl === -1) {
       stringUrl = data.get('title').toLowerCase()
     } else {
-      stringUrl = data.get('title').replaceAll(' ', '-')
+      stringUrl = data.get('title').replaceAll(' ', '-').toLowerCase()
     }
 
     fetch(`http://localhost:8000/api/update-data/${params.url}`, {
