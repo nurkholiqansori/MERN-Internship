@@ -26,6 +26,8 @@ npm run start
 
 > NOTE: You must install [mongodb](https://www.mongodb.com/try/download/community 'MongoDB Download') on your computer before starting the server. or you can create a free server [MongoDB](https://www.mongodb.com/cloud/atlas/register1 'Create MongoDB Account').
 
+Now the server is running on <code>https://localhost:8000</code>.
+
 Open new terminal, and run the following command to access the frontend.
 ```bash
 cd frontend
