@@ -43,7 +43,14 @@ const AddData = () => {
       return false
     }
     if (
-      !(placeholder.startsWith('https://') || placeholder.startsWith('http://') || placeholder.startsWith('www.') || placeholder.startsWith('//') || placeholder.startsWith('Https://') || placeholder.startsWith('Http://'))
+      !(
+        placeholder.startsWith('https://') ||
+        placeholder.startsWith('http://') ||
+        placeholder.startsWith('www.') ||
+        placeholder.startsWith('//') ||
+        placeholder.startsWith('Https://') ||
+        placeholder.startsWith('Http://')
+      )
     ) {
       toast.error('Please enter a valid URL')
       return false
@@ -57,7 +64,7 @@ const AddData = () => {
 
     const data = new FormData(event.currentTarget)
     const tempUrl = data.get('title').search(' ')
-
+    const descriptionValidator = data.get('description')
     let stringUrl
 
     if (tempUrl === -1) {
@@ -73,7 +80,7 @@ const AddData = () => {
         image: data.get('url'),
         title: data.get('title'),
         url: stringUrl,
-        description: data.get('description'),
+        description: descriptionValidator,
       }),
     })
     toast('Data berhasil ditambahkan!', {

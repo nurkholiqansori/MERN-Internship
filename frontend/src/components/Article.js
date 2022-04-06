@@ -26,13 +26,13 @@ const Article = () => {
     .then((response) => response.json())
     .then((result) => setData(result[0]))
 
-    React.useEffect(() => {
-      return setData({
-    image: 'https://source.unsplash.com/random/400x200',
-    title: 'Lorem Ipsum',
-    description: 'Ini akan ditampilkan ketika gagal mendapatkan artikel.',
-  })
-}, [])
+  React.useEffect(() => {
+    return setData({
+      image: 'https://source.unsplash.com/random/400x200',
+      title: 'Lorem Ipsum',
+      description: 'Ini akan ditampilkan ketika gagal mendapatkan artikel.',
+    })
+  }, [])
 
   return (
     <>
@@ -68,9 +68,27 @@ const Article = () => {
             <Skeleton variant='rectangular' width={400} height={200} />
           )}
         </Box>
-        <Typography variant='body1' component='p' align='justify' my='2rem'>
+        <Typography
+          variant='body1'
+          component='p'
+          align='justify'
+          my='2rem'
+          whiteSpace='pre-line'
+        >
           {data.description}
         </Typography>
+        <Box
+          component='footer'
+          spacing={2}
+          direction='row'
+          justifyContent='center'
+          borderTop='1px solid #000000'
+          pb='2rem'
+        >
+          <Typography variant='body1' component='p' align='center' my='2rem'>
+            Blog Artikel tahun {new Date().getFullYear()}
+          </Typography>
+        </Box>
       </Container>
     </>
   )
