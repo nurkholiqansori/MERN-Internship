@@ -4,9 +4,16 @@ const postModel = require('../schema/postsSchema')
 
 // CREATE
 app.post('/api/add-article', async (req, res) => {
-  const post = new postModel(req.body)
-  await post.save()
-  res.status(200).send(post)
+  const check = await postModel.findOne({ url: req.body.url })
+  if (check) {
+    res.status(400).json({
+      message: 'Article already exists',
+    })
+  } else {
+    const post = new postModel(req.body)
+    await post.save()
+    res.status(200).send(post)
+  }
 })
 
 // READ

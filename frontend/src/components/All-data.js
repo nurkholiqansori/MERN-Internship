@@ -19,11 +19,13 @@ import {
 } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
 import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
 
 const AllData = () => {
   const [open, setOpen] = React.useState(false)
   const [tempData, setTempData] = React.useState({})
   const [data, setData] = React.useState([])
+  const navigate = useNavigate()
 
   const handleDelete = () => {
     fetch('http://localhost:8000/api/delete-article', {
@@ -33,7 +35,7 @@ const AllData = () => {
         url: tempData.url,
       }),
     })
-    toast('Berhasil dihapus!', {
+    toast('Berhasil dihapus', {
       type: 'success',
       position: 'top-right',
       autoClose: 5000,
@@ -42,6 +44,7 @@ const AllData = () => {
       pauseOnHover: true,
     })
     setOpen(false)
+    navigate('/')
   }
 
   const handleClose = () => {

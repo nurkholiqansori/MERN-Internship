@@ -81,15 +81,14 @@ const AddData = () => {
         url: stringUrl,
         description: descriptionValidator,
       }),
+    }).then((res) => {
+      if (res.status === 200) {
+        toast.success('Berhasil menambahkan data')
+        navigate('/', { replace: true })
+      } else {
+        toast.error('Terdapat data yang sama, silahkan ganti judul artikelnya')
+      }
     })
-    toast('Data berhasil ditambahkan', {
-      position: 'top-right',
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-    })
-    return navigate('/', { replace: true })
   }
 
   return (
@@ -123,7 +122,8 @@ const AddData = () => {
               width='100%'
               onError={({ currentTarget }) => {
                 currentTarget.onerror = null
-                currentTarget.src = 'https://via.placeholder.com/200?text=Not+Found'
+                currentTarget.src =
+                  'https://via.placeholder.com/200?text=Not+Found'
                 setValidate(false)
               }}
             />

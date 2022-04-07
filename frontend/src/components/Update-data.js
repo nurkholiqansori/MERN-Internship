@@ -99,18 +99,16 @@ const UpdateData = () => {
         url: stringUrl,
         description: data.get('description'),
       }),
+    }).then((res) => {
+      if (res.status === 200) {
+        toast.success('Data berhasil diubah')
+        navigate('/', { replace: true })
+      } else {
+        toast.error('Terdapat data yang sama, silahkan ganti judul artikelnya')
+      }
     })
-    toast('Data berhasil diubah!', {
-      position: 'top-right',
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    })
-    return navigate('/')
   }
+  
   return (
     <>
       <CssBaseline />
