@@ -15,15 +15,13 @@ function App() {
     <div>
       <CssBaseline />
       <Container maxWidth='sm' sx={{ mx: 'auto', my: '2rem' }}>
-        <RouterLink to='/add-data'>
-          <Tooltip title='Tambah Data' placement='right' arrow>
-            <Link underline='none'>
+        <Tooltip title='Tambah Data' placement='right' arrow>
+          <RouterLink to='/add-data'>
               <IconButton>
                 <AddIcon />
               </IconButton>
-            </Link>
-          </Tooltip>
-        </RouterLink>
+          </RouterLink>
+        </Tooltip>
         <Stack spacing={2}>
           <AllData />
         </Stack>
