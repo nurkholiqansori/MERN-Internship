@@ -102,18 +102,22 @@ const AllData = () => {
         ) : (
           data.map((item, index) => (
             <Card sx={{ width: '100%' }} key={item.title}>
-              <CardHeader
-                title={item.title}
-                action={
-                  <Tooltip title='Edit' placement='top' arrow>
-                    <Link href={'/update-data/' + item.url}>
-                      <IconButton aria-label='edit'>
-                        <EditIcon />
-                      </IconButton>
-                    </Link>
-                  </Tooltip>
-                }
-              />
+              {localStorage.getItem('token') ? (
+                <CardHeader
+                  title={item.title}
+                  action={
+                    <Tooltip title='Edit' placement='top' arrow>
+                      <Link href={'/update-data/' + item.url}>
+                        <IconButton aria-label='edit'>
+                          <EditIcon />
+                        </IconButton>
+                      </Link>
+                    </Tooltip>
+                  }
+                />
+              ) : (
+                ''
+              )}
               {item ? (
                 <CardMedia
                   component='img'
@@ -145,13 +149,17 @@ const AllData = () => {
                     Read More
                   </Button>
                 </Link>
-                <Button
-                  variant='contained'
-                  color='error'
-                  onClick={() => deleteArticle(index)}
-                >
-                  Hapus
-                </Button>
+                {localStorage.getItem('token') ? (
+                  <Button
+                    variant='contained'
+                    color='error'
+                    onClick={() => deleteArticle(index)}
+                  >
+                    Hapus
+                  </Button>
+                ) : (
+                  ''
+                )}
               </CardActions>
             </Card>
           ))

@@ -9,7 +9,9 @@ import {
 import AddIcon from '@mui/icons-material/Add'
 import AllData from './components/All-data'
 import { Link as RouterLink } from 'react-router-dom'
-import PersonOutlineIcon from '@mui/icons-material/PersonOutline'
+import LoginIcon from '@mui/icons-material/Login'
+import LogoutIcon from '@mui/icons-material/Logout'
+import { toast } from 'react-toastify'
 
 function App() {
   return (
@@ -24,13 +26,29 @@ function App() {
               </IconButton>
             </RouterLink>
           </Tooltip>
-          <Tooltip title='Login' placement='left' arrow>
-            <RouterLink to='/login'>
-              <IconButton>
-                <PersonOutlineIcon />
-              </IconButton>
-            </RouterLink>
-          </Tooltip>
+          {localStorage.getItem('token') ? (
+            <Tooltip title='Logout' placement='left' arrow>
+              <RouterLink to='/'>
+                <IconButton
+                  onClick={() => {
+                    localStorage.removeItem('user')
+                    localStorage.removeItem('token')
+                    toast.success('Logout Success')
+                  }}
+                >
+                  <LogoutIcon />
+                </IconButton>
+              </RouterLink>
+            </Tooltip>
+          ) : (
+            <Tooltip title='Login' placement='left' arrow>
+              <RouterLink to='/login'>
+                <IconButton>
+                  <LoginIcon />
+                </IconButton>
+              </RouterLink>
+            </Tooltip>
+          )}
         </Stack>
         <AllData />
       </Container>
