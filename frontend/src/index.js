@@ -9,6 +9,7 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import { lightGreen, grey } from '@mui/material/colors'
+import Login from './components/Login'
 
 const theme = createTheme({
   palette: {
@@ -29,6 +30,7 @@ ReactDOM.render(
           <Route path='/article/:url' element={<Article />} />
           <Route path='/add-data' element={<AddData />} />
           <Route path='/update-data/:url' element={<UpdateData />} />
+          <Route path='/login' element={<Login />} />
         </Routes>
       </BrowserRouter>
       <ToastContainer />
