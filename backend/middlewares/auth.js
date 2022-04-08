@@ -30,11 +30,6 @@ const isAdmin = (req, res, next) => {
         message: 'No user found',
       });
     }
-    if (user.role.name !== 'admin') {
-      return res.status(403).send({
-        message: 'Unauthorized',
-      });
-    }
     next();
   });
 }
