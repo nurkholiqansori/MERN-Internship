@@ -5,7 +5,6 @@ const db = {}
 
 db.mongoose = mongoose
 db.user = require('./userSchema')
-db.role = require('./roleSchema')
 db.Roles = ['admin']
 
 module.exports = db
