@@ -26,10 +26,6 @@ const Login = () => {
     const email = data.get('email')
     const password = data.get('password')
 
-    console.log({
-      email: email,
-      password: password,
-    })
     fetch('http://localhost:8000/api/signin', {
       method: 'POST',
       headers: {
@@ -46,7 +42,12 @@ const Login = () => {
         toast(data.message)
         if (data.status === 'success') {
           localStorage.setItem('token', data.accessToken)
-          navigate('/')
+          localStorage.setItem('user', JSON.stringify({
+            id: data.id,
+            username: data.username,
+            email: data.email
+          }))
+          navigate('/add-data')
         }
       })
   }

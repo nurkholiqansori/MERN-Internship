@@ -18,6 +18,14 @@ const AddData = () => {
   const [validate, setValidate] = React.useState(false)
   const navigate = useNavigate()
 
+  React.useEffect(() => {
+    if (localStorage.getItem('token') === null) {
+      toast('You must be logged in to add data')
+      return navigate('/login')
+    }
+  }, [])
+    
+
   const handleFile = (event) => {
     if (
       placeholder.startsWith('https://') ||
