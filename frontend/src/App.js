@@ -12,8 +12,11 @@ import { Link as RouterLink } from 'react-router-dom'
 import LoginIcon from '@mui/icons-material/Login'
 import LogoutIcon from '@mui/icons-material/Logout'
 import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
 
 function App() {
+  const navigate = useNavigate()
+  
   return (
     <div>
       <CssBaseline />
@@ -34,6 +37,7 @@ function App() {
                     localStorage.removeItem('user')
                     localStorage.removeItem('token')
                     toast.success('Logout Success')
+                    navigate('/')
                   }}
                 >
                   <LogoutIcon />
