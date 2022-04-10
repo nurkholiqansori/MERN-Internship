@@ -11,6 +11,7 @@ This is a MERN stack. Tt is a combination of MongoDB, Express.js, React.js and N
 
 Features of the application include:
 - Create, read, update, and delete articles
+- RESTful API
 - Each article has a title, content, and image (Image from url)
 - User can login
 
